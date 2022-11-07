@@ -1,0 +1,38 @@
+version: "3.8"
+
+networks:
+    react_express:
+        driver: bridge
+
+services:
+    frontend:
+        container_name: frontend
+        build:
+            context: .
+            dockerfile: ./docker/React/Dockerfile
+        volumes:
+            - ./frontend:/frontend
+        working_dir: /frontend
+        ports:
+            - 3001:3000
+        tty: true
+        stdin_open: true
+        networks:
+            - react_express
+        command: sh -c "npm install && npm start"
+
+    backend:
+        container_name: backend
+        build:
+            context: .
+            dockerfile: ./docker/Express/Dockerfile
+        volumes:
+            - ./backend:/backend
+        working_dir: /backend
+        ports:
+            - 3002:3000
+        tty: true
+        stdin_open: true
+        networks:
+            - react_express
+        command: sh -c "npm install && npm start"

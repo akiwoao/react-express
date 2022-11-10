@@ -8,12 +8,12 @@ import logo from "../assets/logo.svg";
 export default function Header() {
     return (
         <AppBar sx={header}>
-            <Box component={Link} to="/">
+            <Box component={Link} to="/" sx={logo_img}>
                 <img
                     src={logo}
                     alt="Stock Up Down"
-                    height="48px"
-                    width="auto"
+                    height="100%"
+                    width="100%"
                 />
             </Box>
             <Box component={"nav"} sx={nav}>
@@ -35,15 +35,27 @@ export default function Header() {
 }
 
 const header = {
+    position: "sticky",
+    top: 0,
+    zIndex: 999,
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: "0 160px",
+    gap: { xs: "0 32px", sm: "0 100px", md: "0 160px" },
     margin: 0,
-    padding: "10px 0 4px 160px",
+    padding: {
+        xs: "10px 0 4px 16px",
+        sm: "10px 0 4px 50px",
+        md: "10px 0 4px 160px",
+    },
     bgcolor: "white",
     borderBottom: 1,
     boxShadow: 2,
+};
+
+const logo_img = {
+    height: { xs: "36px", sm: "48px" },
+    width: "auto",
 };
 
 const nav = {
@@ -56,15 +68,16 @@ const nav_ul = {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: "0px 32px",
+    gap: { xs: "0 8px", sm: "0 32px" },
     margin: 0,
     padding: 0,
+    listStyleType: "none",
 };
 
 const page_link = {
     color: "#424242",
     textDecoration: "none",
-    fontSize: "16px",
+    fontSize: { xs: "12px", sm: "16px" },
     "&:hover": {
         textDecoration: "underline",
     },

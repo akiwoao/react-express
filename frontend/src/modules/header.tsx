@@ -1,5 +1,4 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
@@ -7,7 +6,7 @@ import logo from "../assets/logo.svg";
 
 export default function Header() {
     return (
-        <AppBar sx={header}>
+        <Box component={"header"} sx={header}>
             <Box component={Link} to="/" sx={logo_img}>
                 <img
                     src={logo}
@@ -30,7 +29,7 @@ export default function Header() {
                     </Box>
                 </Box>
             </Box>
-        </AppBar>
+        </Box>
     );
 }
 
@@ -41,7 +40,7 @@ const header = {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: { xs: "0 32px", sm: "0 100px", md: "0 160px" },
+    gap: { xs: "0 24px", sm: "0 100px", md: "0 160px" },
     margin: 0,
     padding: {
         xs: "10px 0 4px 16px",
@@ -51,6 +50,7 @@ const header = {
     bgcolor: "white",
     borderBottom: 1,
     boxShadow: 2,
+    fontFamily: "Inter",
 };
 
 const logo_img = {
@@ -68,7 +68,7 @@ const nav_ul = {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: { xs: "0 8px", sm: "0 32px" },
+    gap: { xs: "0 12px", sm: "0 32px" },
     margin: 0,
     padding: 0,
     listStyleType: "none",

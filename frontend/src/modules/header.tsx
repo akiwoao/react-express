@@ -2,14 +2,12 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
-import logo from "../assets/logo.svg";
-
 export default function Header() {
     return (
         <Box component={"header"} sx={header}>
             <Box component={Link} to="/" sx={logo_img}>
                 <img
-                    src={logo}
+                    src={`${process.env.PUBLIC_URL}/assets/logo.svg`}
                     alt="Stock Up Down"
                     height="100%"
                     width="100%"
@@ -43,14 +41,14 @@ const header = {
     gap: { xs: "0 24px", sm: "0 100px", md: "0 160px" },
     margin: 0,
     padding: {
-        xs: "10px 0 4px 16px",
-        sm: "10px 0 4px 50px",
-        md: "10px 0 4px 160px",
+        xs: "12px 0 10px 20px",
+        sm: "10px 0 8px 50px",
+        md: "10px 0 8px 160px",
     },
     bgcolor: "white",
     borderBottom: 1,
+    borderColor: "#aaaaaa",
     boxShadow: 2,
-    fontFamily: "Inter",
 };
 
 const logo_img = {
@@ -67,7 +65,7 @@ const nav = {
 const nav_ul = {
     display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap",
+    flexWrap: "nowrap",
     gap: { xs: "0 12px", sm: "0 32px" },
     margin: 0,
     padding: 0,

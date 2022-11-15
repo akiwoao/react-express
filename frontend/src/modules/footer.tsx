@@ -15,10 +15,10 @@ export default function Footer() {
                     </Box>
                 </Box>
                 <Box component={"nav"}>
-                    <Box component={"ul"} sx={list_style}>
-                        <Box component={"li"}>
+                    <Box component={"ul"} sx={list}>
+                        <Box component={"li"} sx={list_title}>
                             SITEMAP
-                            <Box component={"ul"} sx={list_style}>
+                            <Box component={"ul"} sx={list}>
                                 <Box component={"li"} id={"link"}>
                                     <Box component={Link} to="/" sx={page_link}>
                                         TOP
@@ -50,7 +50,6 @@ export default function Footer() {
 const footer = {
     bgcolor: "#424242",
     color: "#ffffff",
-    fontFamily: "Inter",
     margin: 0,
     padding: 0,
 };
@@ -58,19 +57,19 @@ const footer = {
 const sitemap = {
     display: "flex",
     flexDirection: { xs: "column", sm: "row" },
-    flexWrap: "wrap",
+    flexWrap: "nowrap",
     gap: { xs: "0 32px", sm: "0 100px", md: "0 160px" },
     margin: 0,
     padding: {
-        xs: "20px 16px",
+        xs: "28px 16px",
         sm: "32px 50px",
         md: "32px 160px",
     },
 };
 
 const footer_logo = {
-    margin: { xs: "0 auto" },
-    padding: { xs: "0 0 12px 0" },
+    margin: { xs: "0 auto", sm: "0" },
+    padding: { xs: "0 0 24px 0" },
     height: "fit-content",
     width: "fit-content",
     color: "#ffffff",
@@ -85,16 +84,26 @@ const footer_logo = {
     },
 };
 
-const list_style = {
+const list_title = {
+    paddingBottom: "4px",
+    textAlign: { xs: "center", sm: "left" },
+    fontWeight: "bold",
+    fontSize: { xs: "16px", sm: "20px" },
+};
+
+const list = {
     margin: { xs: "0 auto" },
     padding: 0,
     height: "fit-content",
     width: "fit-content",
+    display: "flex",
+    flexDirection: { xs: "row", sm: "column" },
+    gap: "0 48px",
     listStyleType: "none",
     fontWeight: "bold",
-    fontSize: { xs: "12px", sm: "20px" },
+    fontSize: { xs: "16px", sm: "20px" },
     "> #link": {
-        paddingTop: "4px",
+        paddingTop: "8px",
     },
 };
 
@@ -112,4 +121,5 @@ const copyright = {
     borderTop: 1,
     borderColor: "#ffffff",
     textAlign: "center",
+    fontSize: { xs: "x-small", sm: "small" },
 };

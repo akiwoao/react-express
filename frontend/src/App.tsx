@@ -16,16 +16,24 @@ import { Notfound } from "./pages/Notfound";
 export default function App() {
     return (
         <BrowserRouter>
-            <Header></Header>
-            <Box component={"main"}>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="stockinfo" element={<Stockinfo />} />
-                    <Route path="stockpredict" element={<Stockpredict />} />
-                    <Route path="/*" element={<Notfound />} />
-                </Routes>
+            <Box component={"div"} id={"app"} sx={all_style}>
+                <Header></Header>
+                <Box component={"main"}>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="stockinfo" element={<Stockinfo />} />
+                        <Route path="stockpredict" element={<Stockpredict />} />
+                        <Route path="/*" element={<Notfound />} />
+                    </Routes>
+                </Box>
+                <Footer></Footer>
             </Box>
-            <Footer></Footer>
         </BrowserRouter>
     );
 }
+
+const all_style = {
+    margin: 0,
+    padding: 0,
+    fontFamily: "Inter",
+};

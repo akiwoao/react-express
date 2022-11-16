@@ -7,7 +7,7 @@
             "code": "0000",
             "rate": 0.732213,
             "predict": 28039.23,
-            "upOrDown": 0,
+            "upDown": 0,
             "stocks": [
                 {
                     "date": "2021/01/04",

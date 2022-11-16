@@ -7,7 +7,7 @@ export default function Indicator(props: any) {
         <Box component={"div"} sx={wrapper}>
             <Box
                 component={Link}
-                to={`/stockinfo/?security_code=${props.security_code}`}
+                to={`/stockinfo/?code=${props.code}`}
                 sx={link_style}
             >
                 <Box component={"div"} sx={stock_name}>
@@ -19,20 +19,17 @@ export default function Indicator(props: any) {
                             width="100%"
                         />
                     </Box>
-                    <Box component={"div"}>{props.stock_name}</Box>
+                    <Box component={"div"}>{props.name}</Box>
                 </Box>
                 <Box component={"div"} sx={up_down}>
-                    <Box component={"div"} id={props.UpDown ? "up" : "down"}>
-                        {props.UpDown ? "↑" : "↓"}
+                    <Box component={"div"} id={props.upDown ? "up" : "down"}>
+                        {props.upDown ? "↑" : "↓"}
                     </Box>
                 </Box>
-                <Box component={"div"} sx={predict_stock}>
-                    {props.predict_stock}
+                <Box component={"div"} sx={predict}>
+                    {props.predict}
                 </Box>
-                <Box
-                    component={"div"}
-                    sx={predict_rate}
-                >{`${props.predict_rate}%`}</Box>
+                <Box component={"div"} sx={rate}>{`${props.rate}%`}</Box>
             </Box>
         </Box>
     );
@@ -40,7 +37,7 @@ export default function Indicator(props: any) {
 
 const wrapper = {
     margin: 0,
-    padding: "20px 20px",
+    padding: "16px 8px",
     color: "#424242",
     borderBottom: 1,
     borderColor: "#aaaaaa",
@@ -79,6 +76,9 @@ const stock_name = {
 };
 
 const up_down = {
+    flexShrink: 0,
+    width: "60px",
+    textAlign: "center",
     fontWeight: "bold",
     "> #up": {
         color: "#65BFF1",
@@ -88,12 +88,18 @@ const up_down = {
     },
 };
 
-const predict_stock = {
+const predict = {
+    flexShrink: 0,
+    width: "80px",
+    textAlign: "center",
     fontWeight: "bold",
     fontFamily: "arial",
 };
 
-const predict_rate = {
+const rate = {
+    flexShrink: 0,
+    width: "50px",
+    textAlign: "center",
     fontSize: "15px",
     fontFamily: "arial",
 };

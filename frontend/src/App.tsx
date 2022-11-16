@@ -35,5 +35,7 @@ export default function App() {
 const all_style = {
     margin: 0,
     padding: 0,
-    fontFamily: "Inter",
+    fontFamily: "遊ゴシック",
+    fontSize: "16px",
+    color: "#000000",
 };

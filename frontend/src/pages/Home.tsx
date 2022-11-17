@@ -12,16 +12,17 @@ import test from "../test.json";
 export const Home = () => {
     return (
         <Box component={"div"} sx={wrapper}>
-            <Box component={"div"} sx={index}>
+            <Box component={"div"} sx={main}>
                 <Box component={"div"}>世界の指数</Box>
                 <Box component={"ul"} sx={list_style}>
                     <Box component={"li"}>
                         <Column></Column>
                     </Box>
-                    {test.data.map((data) => {
+                    {test.data.map((data, index) => {
                         return (
                             <Box component={"li"} key={data.id}>
                                 <Indicator
+                                    index={index}
                                     country={data.country}
                                     code={data.code}
                                     name={data.name}
@@ -83,7 +84,7 @@ const wrapper = {
     bgcolor: "#ededed",
 };
 
-const index = {
+const main = {
     flexGrow: 1,
     height: "fit-content",
     margin: 0,

@@ -7,7 +7,7 @@ export default function Indicator(props: any) {
         <Box component={"div"} sx={wrapper}>
             <Box
                 component={Link}
-                to={`/stockinfo/?code=${props.code}`}
+                to={`/stockinfo/?code=${props.code}&index=${props.index}`}
                 sx={link_style}
             >
                 <Box component={"div"} sx={stock_name}>

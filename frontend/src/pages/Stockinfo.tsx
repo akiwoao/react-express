@@ -3,18 +3,24 @@ import Box from "@mui/material/Box";
 import { createTheme } from "@mui/material/styles";
 import { useLocation } from "react-router-dom";
 
+//コンポーネントの追加
+import Stockchart from "../components/stockchart";
+
 //テストデータの追加
 import test from "../test.json";
 
 export const Stockinfo = () => {
     const params = new URLSearchParams(useLocation().search);
-    const data = test.data[parseInt(params.get("index")!)];
+    const data = test.data[parseInt(params.get("index")!)].stocks.map(
+        (stock) => ({
+            x: new Date(stock.date),
+            y: [stock.open, stock.high, stock.low, stock.close],
+        })
+    );
     return (
         <Box component={"div"} sx={wrapper}>
             <Box component={"div"} sx={main}>
-                <Box component={"div"} sx={{ fontWeight: "bold" }}>
-                    {data.name}
-                </Box>
+                <Stockchart data={data}></Stockchart>
             </Box>
             <Box component={"div"} sx={ad}></Box>
         </Box>

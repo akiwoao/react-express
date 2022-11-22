@@ -7,7 +7,7 @@ export default function Indicator(props: any) {
         <Box component={"div"} sx={wrapper}>
             <Box
                 component={Link}
-                to={`/stockinfo/?code=${props.code}&index=${props.index}`}
+                to={`/stockinfo/?index=${props.index}`}
                 sx={link_style}
             >
                 <Box component={"div"} sx={stock_name}>
@@ -80,6 +80,7 @@ const up_down = {
     width: "60px",
     textAlign: "center",
     fontWeight: "bold",
+    fontFamily: "sans",
     "> #up": {
         color: "#65BFF1",
     },
@@ -93,7 +94,6 @@ const predict = {
     width: "80px",
     textAlign: "center",
     fontWeight: "bold",
-    fontFamily: "arial",
 };
 
 const rate = {
@@ -101,5 +101,4 @@ const rate = {
     width: "50px",
     textAlign: "center",
     fontSize: "15px",
-    fontFamily: "arial",
 };

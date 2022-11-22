@@ -35,7 +35,7 @@ export default function App() {
 const all_style = {
     margin: 0,
     padding: 0,
-    fontFamily: "遊ゴシック",
+    fontFamily: "arial",
     fontSize: "16px",
     color: "#000000",
 };

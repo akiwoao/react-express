@@ -19,59 +19,76 @@ export const Stockinfo = () => {
     return (
         <Box component={"div"} sx={wrapper}>
             <Box component={"div"} sx={main}>
-                <Stockchart stocks={stocks}></Stockchart>
-                <Box component={"table"}>
-                    <Box component={"tr"}>
-                        <Box component={"th"}></Box>
-                        <Box component={"th"}>始値</Box>
-                        <Box component={"th"}>高値</Box>
-                        <Box component={"th"}>安値</Box>
-                        <Box component={"th"}>終値</Box>
-                    </Box>
-                    <Box component={"tr"}>
-                        <Box component={"td"}>前日の株価</Box>
-                        <Box component={"td"}>
-                            {data.stocks.slice(-2)[0].open}
-                        </Box>
-                        <Box component={"td"}>
-                            {data.stocks.slice(-2)[0].high}
-                        </Box>
-                        <Box component={"td"}>
-                            {data.stocks.slice(-2)[0].low}
-                        </Box>
-                        <Box component={"td"}>
-                            {data.stocks.slice(-2)[0].close}
+                <Stockchart name={data.name} stocks={stocks}></Stockchart>
+                <Box component={"table"} sx={stock_table}>
+                    <Box component={"thead"}>
+                        <Box component={"tr"}>
+                            <Box component={"th"}></Box>
+                            <Box component={"th"}>始値</Box>
+                            <Box component={"th"}>高値</Box>
+                            <Box component={"th"}>安値</Box>
+                            <Box component={"th"}>終値</Box>
                         </Box>
                     </Box>
-                    <Box component={"tr"}>
-                        <Box component={"td"}>本日の株価</Box>
-                        <Box component={"td"}>
-                            {data.stocks.slice(-1)[0].open}
+                    <Box component={"tbody"}>
+                        <Box component={"tr"}>
+                            <Box component={"td"}>前日の株価</Box>
+                            <Box component={"td"}>
+                                {data.stocks.slice(-2)[0].open}
+                            </Box>
+                            <Box component={"td"}>
+                                {data.stocks.slice(-2)[0].high}
+                            </Box>
+                            <Box component={"td"}>
+                                {data.stocks.slice(-2)[0].low}
+                            </Box>
+                            <Box component={"td"}>
+                                {data.stocks.slice(-2)[0].close}
+                            </Box>
                         </Box>
-                        <Box component={"td"}>
-                            {data.stocks.slice(-1)[0].high}
-                        </Box>
-                        <Box component={"td"}>
-                            {data.stocks.slice(-1)[0].low}
-                        </Box>
-                        <Box component={"td"}>
-                            {data.stocks.slice(-1)[0].close}
+                        <Box component={"tr"}>
+                            <Box component={"td"}>本日の株価</Box>
+                            <Box component={"td"}>
+                                {data.stocks.slice(-1)[0].open}
+                            </Box>
+                            <Box component={"td"}>
+                                {data.stocks.slice(-1)[0].high}
+                            </Box>
+                            <Box component={"td"}>
+                                {data.stocks.slice(-1)[0].low}
+                            </Box>
+                            <Box component={"td"}>
+                                {data.stocks.slice(-1)[0].close}
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
-                <Box component={"table"}>
-                    <Box component={"tr"}>
-                        <Box component={"th"}></Box>
-                        <Box component={"th"}>始値の予測株価</Box>
-                        <Box component={"th"}>上昇or下降</Box>
-                    </Box>
-                    <Box component={"tr"}>
-                        <Box component={"td"}>明日の予測</Box>
-                        <Box component={"td"}>
-                            {data.predicts.slice(-1)[0].predict}
+                <Box component={"table"} sx={predict_table}>
+                    <Box component={"thead"}>
+                        <Box component={"tr"}>
+                            <Box component={"th"}></Box>
+                            <Box component={"th"}>始値の予測</Box>
+                            <Box component={"th"}>上昇or下降</Box>
                         </Box>
-                        <Box component={"td"}>
-                            {data.predicts.slice(-1)[0].up_down}
+                    </Box>
+                    <Box component={"tbody"}>
+                        <Box component={"tr"}>
+                            <Box component={"td"}>明日の予測</Box>
+                            <Box component={"td"}>
+                                {data.predicts.slice(-1)[0].predict}
+                            </Box>
+                            <Box component={"td"}>
+                                {(() => {
+                                    if (
+                                        data.predicts.slice(-1)[0].up_down ==
+                                        "up"
+                                    ) {
+                                        return "上昇";
+                                    } else {
+                                        return "下降";
+                                    }
+                                })()}
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
@@ -129,5 +146,45 @@ const ad = {
     bgcolor: "white",
     [theme.breakpoints.down("md")]: {
         margin: "0 auto",
+    },
+};
+
+const stock_table = {
+    width: "100%",
+    marginTop: "20px",
+    textAlign: "center",
+    borderCollapse: "collapse",
+    "tbody > tr": {
+        borderTop: 1,
+        borderColor: "#bbbbbb",
+    },
+    "th:first-of-type, td:first-of-type": {
+        fontWeight: "bold",
+        borderRight: 1,
+        borderColor: "#bbbbbb",
+    },
+    "th, td": {
+        height: "30px",
+        width: "calc(100% / 5)",
+    },
+};
+
+const predict_table = {
+    width: "60%",
+    marginTop: "24px",
+    textAlign: "center",
+    borderCollapse: "collapse",
+    "tbody > tr": {
+        borderTop: 1,
+        borderColor: "#bbbbbb",
+    },
+    "th:first-of-type, td:first-of-type": {
+        fontWeight: "bold",
+        borderRight: 1,
+        borderColor: "#bbbbbb",
+    },
+    "th, td": {
+        height: "30px",
+        width: "calc(100% / 3)",
     },
 };

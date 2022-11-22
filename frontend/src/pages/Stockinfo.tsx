@@ -11,16 +11,70 @@ import test from "../test.json";
 
 export const Stockinfo = () => {
     const params = new URLSearchParams(useLocation().search);
-    const data = test.data[parseInt(params.get("index")!)].stocks.map(
-        (stock) => ({
-            x: new Date(stock.date),
-            y: [stock.open, stock.high, stock.low, stock.close],
-        })
-    );
+    const data = test.data[parseInt(params.get("index")!)];
+    const stocks = data.stocks.map((stock) => ({
+        x: new Date(stock.date),
+        y: [stock.open, stock.high, stock.low, stock.close],
+    }));
     return (
         <Box component={"div"} sx={wrapper}>
             <Box component={"div"} sx={main}>
-                <Stockchart data={data}></Stockchart>
+                <Stockchart stocks={stocks}></Stockchart>
+                <Box component={"table"}>
+                    <Box component={"tr"}>
+                        <Box component={"th"}></Box>
+                        <Box component={"th"}>始値</Box>
+                        <Box component={"th"}>高値</Box>
+                        <Box component={"th"}>安値</Box>
+                        <Box component={"th"}>終値</Box>
+                    </Box>
+                    <Box component={"tr"}>
+                        <Box component={"td"}>前日の株価</Box>
+                        <Box component={"td"}>
+                            {data.stocks.slice(-2)[0].open}
+                        </Box>
+                        <Box component={"td"}>
+                            {data.stocks.slice(-2)[0].high}
+                        </Box>
+                        <Box component={"td"}>
+                            {data.stocks.slice(-2)[0].low}
+                        </Box>
+                        <Box component={"td"}>
+                            {data.stocks.slice(-2)[0].close}
+                        </Box>
+                    </Box>
+                    <Box component={"tr"}>
+                        <Box component={"td"}>本日の株価</Box>
+                        <Box component={"td"}>
+                            {data.stocks.slice(-1)[0].open}
+                        </Box>
+                        <Box component={"td"}>
+                            {data.stocks.slice(-1)[0].high}
+                        </Box>
+                        <Box component={"td"}>
+                            {data.stocks.slice(-1)[0].low}
+                        </Box>
+                        <Box component={"td"}>
+                            {data.stocks.slice(-1)[0].close}
+                        </Box>
+                    </Box>
+                </Box>
+                <Box component={"table"}>
+                    <Box component={"tr"}>
+                        <Box component={"th"}></Box>
+                        <Box component={"th"}>始値の予測株価</Box>
+                        <Box component={"th"}>上昇or下降</Box>
+                    </Box>
+                    <Box component={"tr"}>
+                        <Box component={"td"}>明日の予測</Box>
+                        <Box component={"td"}>
+                            {data.predicts.slice(-1)[0].predict}
+                        </Box>
+                        <Box component={"td"}>
+                            {data.predicts.slice(-1)[0].up_down}
+                        </Box>
+                    </Box>
+                </Box>
             </Box>
             <Box component={"div"} sx={ad}></Box>
         </Box>

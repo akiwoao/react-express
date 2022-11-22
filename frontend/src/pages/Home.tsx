@@ -23,26 +23,16 @@ export const Home = () => {
                             <Box component={"li"} key={data.id}>
                                 <Indicator
                                     index={index}
-                                    country={data.country}
                                     code={data.code}
                                     name={data.name}
-                                    upDown={data.upDown}
-                                    predict={data.predict}
+                                    country={data.country}
+                                    upDown={data.predicts.slice(-1)[0].up_down}
+                                    predict={data.predicts.slice(-1)[0].predict}
                                     rate={(data.rate * 100).toFixed(2)}
                                 ></Indicator>
                             </Box>
                         );
                     })}
-                    <Box component={"li"}>
-                        <Indicator
-                            country={"japan"}
-                            code={"0000"}
-                            name={"日経平均株価"}
-                            upDown={1}
-                            predict={"30,329.32"}
-                            rate={71.3}
-                        ></Indicator>
-                    </Box>
                 </Box>
             </Box>
             <Box component={"div"} sx={ad}></Box>

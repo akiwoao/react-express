@@ -1,0 +1,52 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "code": "0000",
+            "name": "日経平均株価",
+            "country": "japan",
+            "rate": 0.7823,
+            "stocks": [
+                {
+                    "date": "2021/01/04",
+                    "open": 27258.38,
+                    "high": 27575.57,
+                    "low": 27602.11,
+                    "close": 27042.32
+                }
+            ],
+            "predicts": [
+                {
+                    "date": "2021/01/04",
+                    "predict": 27258.38,
+                    "up_down": "up",
+                    "propriety": true
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "code": "0800",
+            "name": "NYダウ",
+            "country": "america",
+            "rate": 0.7823,
+            "stocks": [
+                {
+                    "date": "2021/01/04",
+                    "open": 27258.38,
+                    "high": 27575.57,
+                    "low": 27602.11,
+                    "close": 27042.32
+                }
+            ],
+            "predicts": [
+                {
+                    "date": "2021/01/04",
+                    "predict": 27258.38,
+                    "up_down": "up",
+                    "propriety": true
+                }
+            ]
+        }
+    ]
+}

@@ -9,7 +9,7 @@ import Footer from "./modules/footer";
 
 //ページの追加
 import { Home } from "./pages/Home";
-import { Stockinfo } from "./pages/Stockinfo";
+import { StockInfo } from "./pages/Stockinfo";
 import { Stockpredict } from "./pages/Stockpredict";
 import { Notfound } from "./pages/Notfound";
 
@@ -21,7 +21,7 @@ export default function App() {
                 <Box component={"main"}>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="stockinfo" element={<Stockinfo />} />
+                        <Route path="stockinfo" element={<StockInfo />} />
                         <Route path="stockpredict" element={<Stockpredict />} />
                         <Route path="/*" element={<Notfound />} />
                     </Routes>

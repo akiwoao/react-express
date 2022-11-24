@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import CanvasJSReact from "../lib/canvasjs.stock.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-export default function StockChart(props: any) {
+export default function WeeklyRateGraph(props: any) {
     return (
         <Box component={"div"}>
             <CanvasJSChart

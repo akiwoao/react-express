@@ -5,20 +5,22 @@ import { useLocation } from "react-router-dom";
 
 //コンポーネントの追加
 import StockChart from "../components/stockChart";
+import MonthlyRateGraph from "../components/monthlyRateGraph";
+import WeeklyRateGraph from "../components/weeklyRateGraph";
 
 //テストデータの追加
 import test from "../test.json";
 
 const stock_shape = (data: any) => {
-    let stocks = data.stocks.map((stock: any) => ({
-        x: new Date(stock.date),
-        y: [stock.open, stock.high, stock.low, stock.close],
+    let stocks = data.stocks.map((data: any) => ({
+        x: new Date(data.date),
+        y: [data.open, data.high, data.low, data.close],
     }));
     return stocks;
 };
 
 const predict_shape = (data: any) => {
-    let predict_rate: any = { monthly: [], weekly: [] };
+    let predicts_data: any = { monthly: [], weekly: [] };
     let month = [
         { total: 0, correct: 0 },
         { total: 0, correct: 0 },
@@ -40,44 +42,44 @@ const predict_shape = (data: any) => {
         { total: 0, correct: 0 },
         { total: 0, correct: 0 },
     ];
-    data.predicts.forEach((predict: any) => {
-        let date = new Date(predict.date);
+    data.predicts.forEach((data: any) => {
+        let date = new Date(data.date);
         let month_number = date.getMonth();
         let week_number = date.getDay() - 1;
         month[month_number].total += 1;
         week[week_number].total += 1;
-        if (predict.propriety) {
+        if (data.propriety) {
             month[month_number].correct += 1;
             week[week_number].correct += 1;
         }
     });
     month.forEach((data, index) =>
-        predict_rate.monthly.push({
+        predicts_data.monthly.push({
             label: index + 1,
             y: (data.correct / data.total) * 100,
         })
     );
     week.forEach((data, index) =>
-        predict_rate.weekly.push({
+        predicts_data.weekly.push({
             label: index + 1,
             y: (data.correct / data.total) * 100,
         })
     );
-    console.log(predict_rate.monthly);
+    return predicts_data;
 };
 
 export const StockInfo = () => {
     const params = new URLSearchParams(useLocation().search);
     const data = test.data[parseInt(params.get("index")!)];
     const stocks = stock_shape(data);
-    const predict_rate = predict_shape(data);
+    const predicts = predict_shape(data);
 
     return (
         <Box component={"div"} sx={wrapper}>
             <Box component={"div"} sx={main}>
                 <Box component={"div"} id={"stock_info"}>
                     <Box component={"div"}>{data.name}</Box>
-                    <StockChart stocks={stocks}></StockChart>
+                    <StockChart stocks={stocks.slice(-90)}></StockChart>
                     <Box component={"table"} sx={stock_table}>
                         <Box component={"thead"}>
                             <Box component={"tr"}>
@@ -125,6 +127,10 @@ export const StockInfo = () => {
 
                 <Box component={"div"} id={"stock_predict"}>
                     <Box component={"div"}>予測データ</Box>
+                    <MonthlyRateGraph
+                        monthly={predicts.monthly}
+                    ></MonthlyRateGraph>
+                    <WeeklyRateGraph weekly={predicts.weekly}></WeeklyRateGraph>
                     <Box component={"table"} sx={predict_table}>
                         <Box component={"thead"}>
                             <Box component={"tr"}>

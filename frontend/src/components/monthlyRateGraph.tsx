@@ -13,7 +13,7 @@ export default function MonthlyRateGraph(props: any) {
                     data: [
                         {
                             type: "column",
-                            dataPoints: props.stocks,
+                            dataPoints: props.monthly,
                         },
                     ],
                 }}

@@ -1,8 +1,8 @@
 version: "3.8"
 
 networks:
-    react_express:
-        driver: bridge
+    shared-network:
+        external: true
 
 services:
     frontend:
@@ -14,11 +14,12 @@ services:
             - ./frontend:/frontend
         working_dir: /frontend
         ports:
-            - 3001:3000
+            - 3000:3000
         tty: true
         stdin_open: true
         networks:
-            - react_express
+            - default
+            - shared-network
         command: sh -c "npm install && npm start"
 
     backend:
@@ -30,9 +31,10 @@ services:
             - ./backend:/backend
         working_dir: /backend
         ports:
-            - 3002:3000
+            - 3001:3000
         tty: true
         stdin_open: true
         networks:
-            - react_express
-        command: sh -c "npm install && npm start"
+            - default
+            - shared-network
+        command: sh -c "npm install && npm run start"

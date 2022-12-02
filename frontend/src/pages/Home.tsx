@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Box from "@mui/material/Box";
 import { createTheme } from "@mui/material/styles";
 
@@ -10,6 +11,19 @@ import Column from "../components/column";
 import test from "../test.json";
 
 export const Home = () => {
+    const [posts, setPosts] = useState<any>([]);
+    useEffect(() => {
+        axios
+            .get("http://127.0.0.1:3001/sample")
+            .then((response) => {
+                console.log(response.data);
+                setPosts(response.data);
+            })
+            .catch(() => {
+                console.log("通信に失敗しました");
+            });
+    }, []);
+
     return (
         <Box component={"div"} sx={wrapper}>
             <Box component={"div"} sx={main}>
@@ -18,12 +32,12 @@ export const Home = () => {
                     <Box component={"li"}>
                         <Column></Column>
                     </Box>
-                    {test.data.map((data, index) => {
+                    {posts.map((data: any, index: number) => {
                         return (
                             <Box component={"li"} key={data.id}>
                                 <Indicator
                                     index={index}
-                                    code={data.code}
+                                    code={data.id}
                                     name={data.name}
                                     country={data.country}
                                     upDown={data.predicts.slice(-1)[0].up_down}

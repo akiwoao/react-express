@@ -8,15 +8,18 @@ import StockChart from "../components/stockChart";
 import MonthlyRateGraph from "../components/monthlyRateGraph";
 import WeeklyRateGraph from "../components/weeklyRateGraph";
 
-//テストデータの追加
-import test from "../test.json";
-
 const stock_shape = (data: any) => {
-    let stocks = data.stocks.map((data: any) => ({
+    var prices = data.prices.map((data: any) => ({
         x: new Date(data.date),
-        y: [data.open, data.high, data.low, data.close],
+        y: [
+            parseFloat(data.open),
+            parseFloat(data.high),
+            parseFloat(data.low),
+            parseFloat(data.close),
+        ],
+        color: data.open <= data.close ? "#4661EE" : "#FF4040",
     }));
-    return stocks;
+    return prices;
 };
 
 const predict_shape = (data: any) => {
@@ -62,16 +65,16 @@ const predict_shape = (data: any) => {
     week.forEach((data, index) =>
         predicts_data.weekly.push({
             label: index + 1,
-            y: (data.correct / data.total) * 100,
+            y: Math.round((data.correct / data.total) * 10000) / 100,
         })
     );
     return predicts_data;
 };
 
 export const StockInfo = () => {
-    const params = new URLSearchParams(useLocation().search);
-    const data = test.data[parseInt(params.get("index")!)];
-    const stocks = stock_shape(data);
+    const { state } = useLocation();
+    const data = state.state;
+    const prices = stock_shape(data);
     const predicts = predict_shape(data);
 
     return (
@@ -79,7 +82,7 @@ export const StockInfo = () => {
             <Box component={"div"} sx={main}>
                 <Box component={"div"} id={"stock_info"}>
                     <Box component={"div"}>{data.name}</Box>
-                    <StockChart stocks={stocks.slice(-90)}></StockChart>
+                    <StockChart prices={prices}></StockChart>
                     <Box component={"table"} sx={stock_table}>
                         <Box component={"thead"}>
                             <Box component={"tr"}>
@@ -92,33 +95,33 @@ export const StockInfo = () => {
                         </Box>
                         <Box component={"tbody"}>
                             <Box component={"tr"}>
-                                <Box component={"td"}>前日の株価</Box>
+                                <Box component={"td"}>本日の株価</Box>
                                 <Box component={"td"}>
-                                    {data.stocks.slice(-2)[0].open}
+                                    {data.prices.slice(-1)[0].open}
                                 </Box>
                                 <Box component={"td"}>
-                                    {data.stocks.slice(-2)[0].high}
+                                    {data.prices.slice(-1)[0].high}
                                 </Box>
                                 <Box component={"td"}>
-                                    {data.stocks.slice(-2)[0].low}
+                                    {data.prices.slice(-1)[0].low}
                                 </Box>
                                 <Box component={"td"}>
-                                    {data.stocks.slice(-2)[0].close}
+                                    {data.prices.slice(-1)[0].close}
                                 </Box>
                             </Box>
                             <Box component={"tr"}>
-                                <Box component={"td"}>本日の株価</Box>
+                                <Box component={"td"}>前日の株価</Box>
                                 <Box component={"td"}>
-                                    {data.stocks.slice(-1)[0].open}
+                                    {data.prices.slice(-2)[0].open}
                                 </Box>
                                 <Box component={"td"}>
-                                    {data.stocks.slice(-1)[0].high}
+                                    {data.prices.slice(-2)[0].high}
                                 </Box>
                                 <Box component={"td"}>
-                                    {data.stocks.slice(-1)[0].low}
+                                    {data.prices.slice(-2)[0].low}
                                 </Box>
                                 <Box component={"td"}>
-                                    {data.stocks.slice(-1)[0].close}
+                                    {data.prices.slice(-2)[0].close}
                                 </Box>
                             </Box>
                         </Box>
@@ -127,10 +130,14 @@ export const StockInfo = () => {
 
                 <Box component={"div"} id={"stock_predict"}>
                     <Box component={"div"}>予測データ</Box>
-                    <MonthlyRateGraph
-                        monthly={predicts.monthly}
-                    ></MonthlyRateGraph>
-                    <WeeklyRateGraph weekly={predicts.weekly}></WeeklyRateGraph>
+                    <Box component={"div"} sx={predict_charts}>
+                        <MonthlyRateGraph
+                            monthly={predicts.monthly}
+                        ></MonthlyRateGraph>
+                        <WeeklyRateGraph
+                            weekly={predicts.weekly}
+                        ></WeeklyRateGraph>
+                    </Box>
                     <Box component={"table"} sx={predict_table}>
                         <Box component={"thead"}>
                             <Box component={"tr"}>
@@ -255,5 +262,13 @@ const predict_table = {
     "th, td": {
         height: "30px",
         width: "calc(100% / 3)",
+    },
+};
+
+const predict_charts = {
+    display: "flex",
+    "#canvasjs-react-chart-container-2": {
+        height: "180px",
+        width: "50%",
     },
 };

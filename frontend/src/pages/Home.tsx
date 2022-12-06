@@ -7,17 +7,21 @@ import { createTheme } from "@mui/material/styles";
 import Indicator from "../components/indicator";
 import Column from "../components/column";
 
-//テストデータの追加
-import test from "../test.json";
-
 export const Home = () => {
     const [posts, setPosts] = useState<any>([]);
     useEffect(() => {
         axios
-            .get("http://127.0.0.1:3001/sample")
+            .get("http://127.0.0.1:8000/api/stocks/")
             .then((response) => {
-                console.log(response.data);
+                response.data.map((data: any) => {
+                    var true_count: number = data.predicts.filter(
+                        (predict: any) => predict.propriety === true
+                    ).length;
+                    var rate: number = true_count / data.predicts.length;
+                    data.rate = Math.round(rate * 10000) / 100;
+                });
                 setPosts(response.data);
+                console.log(response.data);
             })
             .catch(() => {
                 console.log("通信に失敗しました");
@@ -35,15 +39,7 @@ export const Home = () => {
                     {posts.map((data: any, index: number) => {
                         return (
                             <Box component={"li"} key={data.id}>
-                                <Indicator
-                                    index={index}
-                                    code={data.id}
-                                    name={data.name}
-                                    country={data.country}
-                                    upDown={data.predicts.slice(-1)[0].up_down}
-                                    predict={data.predicts.slice(-1)[0].predict}
-                                    rate={(data.rate * 100).toFixed(2)}
-                                ></Indicator>
+                                <Indicator data={data}></Indicator>
                             </Box>
                         );
                     })}

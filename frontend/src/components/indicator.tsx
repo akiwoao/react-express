@@ -3,33 +3,38 @@ import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
 export default function Indicator(props: any) {
+    const data: any = props.data;
     return (
         <Box component={"div"} sx={wrapper}>
             <Box
                 component={Link}
-                to={`/stockinfo/?index=${props.index}`}
+                to={`/stockinfo/?index=${data.id}`}
+                state={{ state: data }}
                 sx={link_style}
             >
                 <Box component={"div"} sx={stock_name}>
                     <Box component={"div"} sx={flag_img}>
                         <img
-                            src={`${process.env.PUBLIC_URL}/assets/${props.country}.svg`}
-                            alt={props.country}
+                            src={`${process.env.PUBLIC_URL}/assets/${data.country}.svg`}
+                            alt={data.country}
                             height="100%"
                             width="100%"
                         />
                     </Box>
-                    <Box component={"div"}>{props.name}</Box>
+                    <Box component={"div"}>{data.name}</Box>
                 </Box>
                 <Box component={"div"} sx={up_down}>
-                    <Box component={"div"} id={props.upDown ? "up" : "down"}>
-                        {props.upDown ? "↑" : "↓"}
+                    <Box
+                        component={"div"}
+                        id={data.predicts.slice(-1)[0].up_down ? "up" : "down"}
+                    >
+                        {data.predicts.slice(-1)[0].up_down ? "↑" : "↓"}
                     </Box>
                 </Box>
                 <Box component={"div"} sx={predict}>
-                    {props.predict}
+                    {data.predicts.slice(-1)[0].predict}
                 </Box>
-                <Box component={"div"} sx={rate}>{`${props.rate}%`}</Box>
+                <Box component={"div"} sx={rate}>{`${data.rate}%`}</Box>
             </Box>
         </Box>
     );

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Indicator(props: any) {
     const data: any = props.data;
+    console.log(data.next_predict[0].up_down);
     return (
         <Box component={"div"} sx={wrapper}>
             <Box
@@ -26,13 +27,15 @@ export default function Indicator(props: any) {
                 <Box component={"div"} sx={up_down}>
                     <Box
                         component={"div"}
-                        id={data.predicts.slice(-1)[0].up_down ? "up" : "down"}
+                        id={
+                            data.next_predict[0].up_down == "up" ? "up" : "down"
+                        }
                     >
-                        {data.predicts.slice(-1)[0].up_down ? "↑" : "↓"}
+                        {data.next_predict[0].up_down == "up" ? "↑" : "↓"}
                     </Box>
                 </Box>
                 <Box component={"div"} sx={predict}>
-                    {data.predicts.slice(-1)[0].predict}
+                    {data.next_predict[0].predict}
                 </Box>
                 <Box component={"div"} sx={rate}>{`${data.rate}%`}</Box>
             </Box>

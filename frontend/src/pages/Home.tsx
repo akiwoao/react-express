@@ -15,7 +15,7 @@ export const Home = () => {
             .then((response) => {
                 response.data.map((data: any) => {
                     var true_count: number = data.predicts.filter(
-                        (predict: any) => predict.propriety === true
+                        (predict: any) => predict.propriety == true
                     ).length;
                     var rate: number = true_count / data.predicts.length;
                     data.rate = Math.round(rate * 10000) / 100;
